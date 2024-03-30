@@ -1,7 +1,7 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useId } from "react";
 import { useDispatch } from "react-redux";
-// import { addContact } from "../../redux/contactsSlice";
+import { addContact } from "../../redux/contactsOps";
 import * as Yup from "yup";
 import css from "./ContactForm.module.css";
 
@@ -14,8 +14,8 @@ const ContactSchema = Yup.object().shape({
     .min(7)
     .max(18)
     .matches(
-      /^\d{3}-\d{2}-\d{2}$/,
-      "Phone number is not valid! Example: 111-11-11"
+      /^\d{3}-\d{3}-\d{4}$/,
+      "Phone number is not valid! Example: 111-111-1111"
     )
     .required("Required"),
 });
@@ -31,7 +31,7 @@ export default function ContactForm() {
   const dispatch = useDispatch();
 
   const handleSubmit = (values, actions) => {
-    // dispatch(addContact(values));
+    dispatch(addContact(values));
     actions.resetForm();
   };
   return (
